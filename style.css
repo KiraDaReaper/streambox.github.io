@@ -1,0 +1,428 @@
+/*======================================================
+  1. Variables y Estilos Base
+========================================================*/
+
+:root {
+    /* Paleta de colores oscura, ideal para contenido multimedia */
+    --bg-color: #141414;        /* Fondo principal (casi negro) */
+    --text-color: #FFFFFF;      /* Color del texto */
+    --accent-color: #E50914;    /* Color de acento (Rojo Netflix) */
+    --nav-bg: rgba(20, 20, 20, 0.95); /* Fondo semi-transparente para la navegación */
+    --hover-duration: 0.3s;     /* Duración de las transiciones */
+    --spacing-large: 60px;
+    --spacing-small: 20px;
+}
+
+/* Reseteo básico y tipografía */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Tipografía limpia y moderna */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+/*======================================================
+  2. Barra de Navegación (Header)
+========================================================*/
+
+.header {
+    position: fixed; /* Fijo en la parte superior al hacer scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px var(--spacing-large);
+    background-color: var(--nav-bg);
+    z-index: 1000; /* Asegura que esté por encima de todo el contenido */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: var(--accent-color);
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: -1px; /* Letras ligeramente juntas */
+}
+
+.nav-links a {
+    margin-left: 20px;
+    font-size: 1.1em;
+    opacity: 0.8;
+    transition: opacity var(--hover-duration);
+}
+
+.nav-links a:hover {
+    opacity: 1; /* Efecto de hover sutil */
+    color: var(--text-color);
+}
+
+/*======================================================
+  3. Estructura de Contenido (Filas)
+========================================================*/
+
+.main-content {
+    /* Espacio superior para compensar la barra de navegación fija */
+    padding-top: 80px; 
+}
+
+.content-row {
+    margin: 50px 0;
+    padding-left: var(--spacing-large);
+}
+
+.row-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/*======================================================
+  4. Carteles (Posters) y Carrusel
+========================================================*/
+
+.posters-container {
+    display: flex;
+    overflow-x: scroll; /* Permite el desplazamiento horizontal */
+    padding-bottom: 15px; /* Espacio para que el scrollbar no se pegue */
+    
+    /* Ocultar la barra de scroll (solo visualmente, el scroll sigue funcionando) */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Ocultar barra de scroll en navegadores basados en Webkit (Chrome, Safari) */
+.posters-container::-webkit-scrollbar {
+    display: none;
+}
+
+.poster-item {
+    width: 250px; /* Ancho del cartel en desktop */
+    height: 140px; /* Proporción 16:9 para posters horizontales */
+    flex-shrink: 0; /* IMPEDIR que los carteles se encojan */
+    margin-right: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    
+    /* Transición para el efecto de zoom al hacer hover */
+    transition: transform var(--hover-duration) ease-in-out, 
+                box-shadow var(--hover-duration);
+}
+
+.poster-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor */
+    transition: transform var(--hover-duration) ease-in-out;
+}
+
+/* Efecto al pasar el ratón (Hover) */
+.poster-item:hover {
+    transform: scale(1.1) translateY(-10px); /* Ligeramente más grande y elevado */
+    z-index: 50; /* Hace que se superponga a los carteles vecinos */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9); /* Sombra para profundidad */
+    border: 3px solid var(--text-color); /* Borde blanco para resaltar */
+}
+
+.poster-item:hover img {
+    transform: scale(1.03); /* Zoom sutil en la imagen */
+}
+
+/*======================================================
+  5. Diseño Responsivo (Media Queries)
+========================================================*/
+
+/* Estilos para pantallas medianas (ej. Tablets - 768px y menos) */
+@media (max-width: 768px) {
+    
+    .header {
+        padding: 10px var(--spacing-small);
+    }
+    
+    .content-row {
+        padding-left: var(--spacing-small);
+    }
+
+    /* Reducir el tamaño del cartel */
+    .poster-item {
+        width: 180px; 
+        height: 101px; /* Mantiene la proporción 16:9 */
+    }
+
+    .row-title {
+        font-size: 1.6em;
+    }
+}
+
+/* Estilos para pantallas pequeñas (ej. Celulares - 480px y menos) */
+@media (max-width: 480px) {
+    
+    .logo {
+        font-size: 1.5em;
+    }
+    
+    /* Ocultar los enlaces de navegación para maximizar el espacio */
+    .nav-links {
+        display: none;
+    }
+
+    /* Reducir aún más el tamaño del cartel */
+    .poster-item {
+        width: 120px; 
+        height: 68px;
+        margin-right: 8px;
+    }
+
+    .row-title {
+        font-size: 1.4em;
+    }
+}
+
+/* Código Adicional para style.css */
+
+/* Estilo para el botón general */
+.btn {
+    padding: 10px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: background-color 0.2s;
+}
+
+/* Botón de Reproducir (Principal) */
+.btn.play {
+    background-color: var(--text-color); /* Blanco */
+    color: var(--bg-color); /* Texto oscuro */
+}
+
+.btn.play:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Botón de Información (Secundario) */
+.btn.info {
+    background-color: rgba(109, 109, 110, 0.7); /* Gris semi-transparente */
+    color: var(--text-color); /* Texto blanco */
+}
+
+.btn.info:hover {
+    background-color: rgba(109, 109, 110, 0.9);
+}
+
+
+/* Estilos de la Sección HERO (Banner Principal) */
+.hero-section {
+    /* Reemplaza 'hero-bg.jpg' con la ruta a tu propia imagen 
+        para el banner de fondo. 
+    */
+    background: url('hero-bg.jpg') center/cover no-repeat;
+    height: 90vh; /* Ocupa casi toda la altura de la vista */
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    padding-left: var(--spacing-large);
+    position: relative;
+    color: white;
+}
+
+/* Gradiente Oscuro en la parte inferior del banner (como Netflix) */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Altura del gradiente */
+    /* El gradiente va de transparente a negro (el color de fondo) */
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 0), var(--bg-color));
+}
+
+.hero-content {
+    z-index: 10; /* Asegura que el texto esté sobre el gradiente */
+    width: 40%;
+}
+
+.hero-content h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Ajuste responsivo para el HERO */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 60vh;
+        padding-left: var(--spacing-small);
+    }
+    
+    .hero-content {
+        width: 100%;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+        /* Ocultar la sinopsis en móviles para mantener la limpieza */
+        display: none; 
+    }
+}
+/* CÓDIGO CSS ADICIONAL (Agrega esto a style.css) */
+
+/* Estilos para el contenedor principal del Modal */
+.modal {
+    display: none; /* INICIALMENTE OCULTO */
+    position: fixed; /* Se mantiene sobre todo */
+    z-index: 2000; /* Asegura que esté por encima de la navegación (z-index: 1000) */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite scroll si el contenido es muy largo */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente y oscuro */
+}
+
+/* Estilos para el contenido que está dentro del Modal */
+.modal-content {
+    background-color: var(--bg-color);
+    margin: 5% auto; /* Centrado vertical y un poco de espacio arriba */
+    width: 80%; /* Ancho en desktop */
+    max-width: 900px;
+    border-radius: 8px;
+    overflow: hidden; /* Importante para que la imagen se ajuste */
+    position: relative;
+    transform: translateY(-50px); /* Efecto para que 'entre' por arriba */
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+/* Estado ACTIVO del Modal (mostrado por JavaScript) */
+.modal.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Botón de Cerrar (X) */
+.close-btn {
+    color: var(--text-color);
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 20;
+    transition: color 0.2s;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--accent-color);
+}
+
+/* Área de Vista Previa (Video/Imagen) */
+.preview-area {
+    position: relative;
+    height: 500px; /* Alto de la imagen/video de preview */
+}
+
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-buttons {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 10;
+}
+
+/* Área de Descripción */
+.description-area {
+    padding: 30px;
+}
+
+.description-area h2 {
+    font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.metadata {
+    color: #a0a0a0;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+
+/* Responsivo del Modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .preview-area {
+        height: 300px; /* Altura menor en móvil */
+    }
+
+    .description-area h2 {
+        font-size: 1.8em;
+    }
+
+    .modal-buttons {
+        bottom: 15px;
+        left: 15px;
+    }
+}
+
+/* Dentro de style.css */
+.hero-section {
+    /* ✅ ESTILO NETFLIX: Usa una imagen de alta resolución.
+        La ruta es directa porque la imagen está al mismo nivel que style.css
+    */
+    background: url('FIVE.png') center/cover no-repeat; 
+    
+    /* El resto de estilos se mantienen... */
+    height: 90vh; 
+    /* ... */
+}
+
+.hero-section {
+    /* ✅ RUTA ORGANIZADA: La imagen está dentro de la carpeta 'imagenes' 
+        que está al mismo nivel que style.css.
+    */
+    background: url('portada/FIVE.png') center/cover no-repeat; 
+    
+    /* El resto de estilos se mantienen... */
+    height: 90vh; 
+    /* ... */
+}
